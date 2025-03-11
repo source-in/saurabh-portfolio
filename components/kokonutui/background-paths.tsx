@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { FileDownIcon } from "lucide-react"
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { FileDownIcon } from "lucide-react";
 
 function FloatingPaths({ position }: { position: number }) {
   const paths = Array.from({ length: 36 }, (_, i) => ({
@@ -16,11 +16,15 @@ function FloatingPaths({ position }: { position: number }) {
     } ${875 - i * 6} ${684 - i * 5 * position} ${875 - i * 6}`,
     color: `rgba(15,23,42,${0.1 + i * 0.03})`,
     width: 0.5 + i * 0.03,
-  }))
+  }));
 
   return (
     <div className="absolute inset-0 pointer-events-none">
-      <svg className="w-full h-full text-slate-950 dark:text-white" viewBox="0 0 696 316" fill="none">
+      <svg
+        className="w-full h-full text-slate-950 dark:text-white"
+        viewBox="0 0 696 316"
+        fill="none"
+      >
         <title>Background Paths</title>
         {paths.map((path) => (
           <motion.path
@@ -44,15 +48,15 @@ function FloatingPaths({ position }: { position: number }) {
         ))}
       </svg>
     </div>
-  )
+  );
 }
 
 const scrollToSection = (id: string) => {
-  const element = document.getElementById(id)
+  const element = document.getElementById(id);
   if (element) {
-    element.scrollIntoView({ behavior: "smooth" })
+    element.scrollIntoView({ behavior: "smooth" });
   }
-}
+};
 
 export default function BackgroundPaths({
   title = "Background Paths",
@@ -60,12 +64,12 @@ export default function BackgroundPaths({
   subSubtitle,
   showButtons = false,
 }: {
-  title?: string
-  subtitle?: string
-  subSubtitle?: string[]
-  showButtons?: boolean
+  title?: string;
+  subtitle?: string;
+  subSubtitle?: string[];
+  showButtons?: boolean;
 }) {
-  const words = title.split(" ")
+  const words = title.split(" ");
 
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-white dark:bg-neutral-950">
@@ -125,7 +129,10 @@ export default function BackgroundPaths({
               className="mb-8 max-w4xl mx-auto"
             >
               {subSubtitle.map((statement, index) => (
-                <p key={index} className="text-lg text-neutral-600 dark:text-neutral-400 mb-2">
+                <p
+                  key={index}
+                  className="text-lg text-neutral-600 dark:text-neutral-400 mb-2"
+                >
                   {statement}
                 </p>
               ))}
@@ -139,26 +146,29 @@ export default function BackgroundPaths({
               transition={{ delay: 2, duration: 1 }}
               className="mt-8 flex justify-center space-x-4"
             >
-              <Button variant="outline" size="lg" className="rounded-full" onClick={() => scrollToSection("projects")}>
-                View My Projects
-              </Button>
               <Button
                 variant="outline"
                 size="lg"
                 className="rounded-full"
-                onClick={() => {
-                  // Add your resume download logic here
-                  console.log("Downloading resume...")
-                }}
+                onClick={() => scrollToSection("projects")}
               >
-                <FileDownIcon className="mr-2 h-4 w-4" />
-                Download Resume
+                View My Projects
               </Button>
+              <a
+                href="/saurabh-sawant-resume.pdf"
+                // download="saurabh-sawant-resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="outline" size="lg" className="rounded-full">
+                  <FileDownIcon className="mr-2 h-4 w-4" />
+                  Download Resume
+                </Button>
+              </a>
             </motion.div>
           )}
         </motion.div>
       </div>
     </div>
-  )
+  );
 }
-
