@@ -17,10 +17,21 @@ import {
   GithubIcon,
   ArrowRightIcon,
   ChevronUpIcon,
+  ImageIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export default function Projects() {
   const [showAllProjects, setShowAllProjects] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const projects = [
     {
@@ -31,24 +42,39 @@ export default function Projects() {
       tags: ["Next.js", "Supabase", "Generative AI", "Tailwind CSS"],
       liveUrl: "#",
       githubUrl: "https://github.com/source-in/finsense",
+      screenshots: ["/screenshots/finsense/fs1.png"],
     },
     {
       id: 2,
       title: "QueryGen",
       description:
-        "A model built using Meta-Llama-3.1-8B and Streamlit to generate accurate SQL queries from natural language questions.",
-      tags: ["Meta-Llama-3.1-8B", "Streamlit", "SQL", "Machine Learning"],
+        "An AI-powered web app that lets users connect databases and get answers by asking questions in plain English. Supports multiple databse connections (PostgreSQL, MySQL, SQlite) and CSV uploads for easy data access.",
+      tags: ["Next.js", "FastAPI", "Gemini", "SQL"],
       liveUrl: "#",
       githubUrl: "https://github.com/source-in/text2sql_llama",
+      screenshots: [
+        "/screenshots/querygen/qg1.png",
+        "/screenshots/querygen/qg2.png",
+        "/screenshots/querygen/qg3.png",
+        "/screenshots/querygen/qg4.png",
+        "/screenshots/querygen/qg5.png",
+        "/screenshots/querygen/qg6.png",
+        "/screenshots/querygen/qg7.png",
+      ],
     },
     {
       id: 3,
-      title: "Blogify",
+      title: "DocuChat AI",
       description:
-        "A blogging platform for students with features like real-time commenting, user profiles, and content management.",
-      tags: ["React", "Node.js", "MongoDB", "Express.js"],
+        "An AI-powered document assistant that allows users to upload PDFs and ask questions about the content using natural language. Built with Langchain and OpenAI APIs.",
+      tags: ["Next.js", "Langchain", "OpenAI", "Supabase"],
       liveUrl: "#",
       githubUrl: "https://github.com/source-in/college-insights-frontend",
+      screenshots: [
+        "/screenshots/chatbot/chatbot1.png",
+        "/screenshots/chatbot/chatbot2.png",
+        "/screenshots/chatbot/chatbot3.png",
+      ],
     },
     {
       id: 4,
@@ -58,14 +84,14 @@ export default function Projects() {
       tags: ["Python", "ResNet50", "Streamlit", "Deep Learning"],
       liveUrl: "#",
       githubUrl: "https://github.com/source-in/malaria-cell-detection",
+      screenshots: [
+        "/screenshots/cellscan/cs1.png",
+        "/screenshots/cellscan/cs2.png",
+      ],
     },
   ];
 
   const visibleProjects = showAllProjects ? projects : projects.slice(0, 3);
-
-  const toggleProjects = () => {
-    setShowAllProjects(!showAllProjects);
-  };
 
   return (
     <section id="projects" className="py-20 bg-white dark:bg-neutral-950">
@@ -116,7 +142,14 @@ export default function Projects() {
                   }}
                 >
                   <CardHeader>
-                    <CardTitle>{project.title}</CardTitle>
+                    <CardTitle className="flex items-center gap-2">
+                      {project.title}
+                      {project.title === "FinSense" && (
+                        <span className="text-xs bg-yellow-400 text-black px-2 py-0.5 rounded-full">
+                          under dev
+                        </span>
+                      )}
+                    </CardTitle>
                     <CardDescription>{project.description}</CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -132,7 +165,7 @@ export default function Projects() {
                       ))}
                     </div>
                   </CardContent>
-                  <CardFooter className="flex mt-auto justify-between">
+                  <CardFooter className="flex mt-auto justify-between gap-2">
                     <Button variant="outline" size="sm" asChild>
                       <a
                         href={project.githubUrl}
@@ -142,6 +175,17 @@ export default function Projects() {
                         <GithubIcon className="mr-2 h-4 w-4" />
                         Code
                       </a>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        setSelectedProject(project.id);
+                        setCurrentIndex(0);
+                      }}
+                    >
+                      <ImageIcon className="mr-2 h-4 w-4" />
+                      Screens
                     </Button>
                   </CardFooter>
                 </Card>
@@ -154,7 +198,7 @@ export default function Projects() {
           <Button
             variant="outline"
             className="rounded-full"
-            onClick={toggleProjects}
+            onClick={() => setShowAllProjects(!showAllProjects)}
           >
             {showAllProjects ? (
               <>
@@ -170,6 +214,67 @@ export default function Projects() {
           </Button>
         </div>
       </div>
+
+      {/* Dialog for Screenshots */}
+      <Dialog
+        open={selectedProject !== null}
+        onOpenChange={() => setSelectedProject(null)}
+      >
+        <DialogContent className="max-w-6xl p-6">
+          <DialogHeader>
+            <DialogTitle>
+              {projects.find((p) => p.id === selectedProject)?.title}{" "}
+              Screenshots
+            </DialogTitle>
+          </DialogHeader>
+
+          {selectedProject !== null && (
+            <div className="relative mt-4 flex items-center justify-center">
+              <img
+                src={
+                  projects.find((p) => p.id === selectedProject)?.screenshots[
+                    currentIndex
+                  ]
+                }
+                alt={`Screenshot ${currentIndex + 1}`}
+                className="rounded-xl w-full max-h-[80vh] object-contain shadow-lg transition-all duration-300"
+              />
+
+              {/* Left Arrow */}
+              <button
+                onClick={() =>
+                  setCurrentIndex((prev) =>
+                    prev === 0
+                      ? projects.find((p) => p.id === selectedProject)!
+                          .screenshots.length - 1
+                      : prev - 1
+                  )
+                }
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full"
+              >
+                <ChevronLeftIcon className="w-6 h-6" />
+              </button>
+
+              {/* Right Arrow */}
+              <button
+                onClick={() =>
+                  setCurrentIndex((prev) =>
+                    prev ===
+                    projects.find((p) => p.id === selectedProject)!.screenshots
+                      .length -
+                      1
+                      ? 0
+                      : prev + 1
+                  )
+                }
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full"
+              >
+                <ChevronRightIcon className="w-6 h-6" />
+              </button>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }

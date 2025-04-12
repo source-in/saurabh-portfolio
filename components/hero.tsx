@@ -23,7 +23,7 @@ export default function Hero() {
         subtitle="Software Engineer specializing in modern web technologies"
         subSubtitle={[
           "Passionate about building scalable, user-centric web applications powered by generative AI.",
-          "Experienced in full-stack development with a focus on React, Node.js, and cloud technologies.",
+          "Experienced in full-stack development with a focus on Next.js, Node.js, and cloud technologies.",
         ]}
         showButtons={true}
       />
