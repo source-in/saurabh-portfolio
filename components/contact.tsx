@@ -54,8 +54,8 @@ export default function Contact() {
     {
       icon: <MailIcon className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
       title: "Email",
-      value: "saurabh.ssawnt07@gmail.com",
-      link: "mailto:saurabh.ssawnt07@gmail.com",
+      value: "saurabh.ssawant07@gmail.com",
+      link: "mailto:saurabh.ssawant07@gmail.com",
     },
     // {
     //   icon: <PhoneIcon className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
