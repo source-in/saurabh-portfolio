@@ -51,7 +51,7 @@ export default function Projects() {
         "An AI-powered web app that lets users connect databases and get answers by asking questions in plain English. Supports multiple databse connections (PostgreSQL, MySQL, SQlite) and CSV uploads for easy data access.",
       tags: ["Next.js", "FastAPI", "Gemini", "SQL"],
       liveUrl: "#",
-      githubUrl: "https://github.com/source-in/text2sql_llama",
+      githubUrl: "https://github.com/source-in/querygen",
       screenshots: [
         "/screenshots/querygen/qg1.png",
         "/screenshots/querygen/qg2.png",
@@ -69,7 +69,7 @@ export default function Projects() {
         "An AI-powered document assistant that allows users to upload PDFs and ask questions about the content using natural language. Built with Langchain and OpenAI APIs.",
       tags: ["Next.js", "Langchain", "OpenAI", "Supabase"],
       liveUrl: "#",
-      githubUrl: "https://github.com/source-in/college-insights-frontend",
+      githubUrl: "https://github.com/source-in/docuchat",
       screenshots: [
         "/screenshots/chatbot/chatbot1.png",
         "/screenshots/chatbot/chatbot2.png",
